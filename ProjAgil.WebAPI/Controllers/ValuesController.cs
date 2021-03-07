@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProjAgil.WebAPI.Data;
-using ProjAgil.WebAPI.Model;
+using ProjAgil.Repository;
 
 namespace ProjAgil.WebAPI.Controllers
 {
@@ -14,8 +13,8 @@ namespace ProjAgil.WebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public readonly DataContext _context;
-        public ValuesController(DataContext context)
+        public readonly ProjAgilContext _context;
+        public ValuesController(ProjAgilContext context)
         {
             _context = context;
 
@@ -42,7 +41,7 @@ namespace ProjAgil.WebAPI.Controllers
         {
             try
             {
-                var results = await _context.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
+                var results = await _context.Eventos.FirstOrDefaultAsync(x => x.Id == id);
                 return Ok(results);
             }
             catch(System.Exception)
